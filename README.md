@@ -91,12 +91,17 @@ spec:
           annotations:
             summary: Dragonfly instance {{ $labels.namespace }}/{{ $labels.dragonfly_cluster }}/{{ $labels.pod }} is lagging behind master!
 
-        - alert: DragonflyTooManyConnections
-          expr: dragonfly_connected_clients / dragonfly_maxclients * 100 > 90
-          for: 2m
-          labels:
-            severity: warning
-          annotations:
-            summary: Dragonfly too many connections {{ $labels.namespace }}/{{ $labels.dragonfly_cluster }}/{{ $labels.pod }}
+```
 
+- rules, that cannot be used right now, as there is no dragonfly_maxclients metric
+- discussed in https://github.com/dragonflydb/dragonfly/issues/2912
+
+```yaml
+- alert: DragonflyTooManyConnections
+  expr: dragonfly_connected_clients / dragonfly_maxclients * 100 > 90
+  for: 2m
+  labels:
+    severity: warning
+  annotations:
+    summary: Dragonfly too many connections {{ $labels.namespace }}/{{ $labels.dragonfly_cluster }}/{{ $labels.pod }}
 ```
