@@ -68,7 +68,7 @@ spec:
             summary: Dragonfly instance {{ $labels.namespace }}/{{ $labels.dragonfly_cluster }}/{{ $labels.pod }} blocked some connections.
 
         - alert: DragonflyNoConnections
-          expr: dragonfly_connected_clients < 5 and dragonfly_master == 1
+          expr: dragonfly_connected_clients < 4 and dragonfly_master == 1
           for: 0m
           labels:
             severity: warning
@@ -84,7 +84,7 @@ spec:
             summary: Dragonfly instance {{ $labels.namespace }}/{{ $labels.dragonfly_cluster }}/{{ $labels.pod }} is running out of memory!
 
         - alert: DragonflyReplicaLagging
-          expr: dragonfly_connected_replica_lag_records > 50
+          expr: dragonfly_connected_replica_lag_records > 100
           for: 5m
           labels:
             severity: warning
